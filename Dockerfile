@@ -1,24 +1,28 @@
-FROM eclipse-temurin:17-jdk-alpine
-
-# 1. Crear directorio app
+# 1️⃣ — Etapa de construcción
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# 2. Copiar mvnw y darle permisos
+# Copiar archivos de Maven primero (para aprovechar caché)
+COPY pom.xml .
 COPY mvnw .
-RUN chmod +x mvnw
-
-# 3. Copiar wrapper
+COPY mvnw.cmd .
 COPY .mvn .mvn
 
-# 4. Descargar dependencias offline
-RUN ./mvnw dependency:go-offline
+# Descargar dependencias sin fallar
+RUN mvn dependency:go-offline -B
 
-# 5. Copiar el proyecto
+# Copiar el resto del proyecto
 COPY src ./src
-COPY pom.xml .
 
-# 6. Build del jar
-RUN ./mvnw -DskipTests package
+# Compilar
+RUN mvn package -DskipTests
 
-# 7. Ejecutar la app
-CMD ["java", "-jar", "target/*.jar"]
+# 2️⃣ — Etapa de ejecución
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+
+# Copiar el JAR generado desde la etapa build
+COPY --from=build /app/target/*.jar app.jar
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
