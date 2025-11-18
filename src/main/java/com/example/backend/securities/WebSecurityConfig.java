@@ -69,7 +69,9 @@ public class WebSecurityConfig {
                                 "/swagger-resources/**",
                                 "/configuration/ui",
                                 "/configuration/security",
-                                "/webjars/**"
+                                "/webjars/**",
+                                "/test"   // 👈 AQUI AÑADIMOS EL ENDPOINT LIBRE
+
                         ).permitAll()
                         // ✅ Permitir login sin token
                         .requestMatchers(("/login")).permitAll()
