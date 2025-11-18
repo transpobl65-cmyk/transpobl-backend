@@ -26,6 +26,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
+
+        // ❗ Excluir rutas públicas del filtro JWT
+        String path = request.getRequestURI();
+        if (path.equals("/test") || path.equals("/login") || path.startsWith("/swagger") || path.startsWith("/v3")) {
+            chain.doFilter(request, response);
+            return;
+        }
         final String requestTokenHeader = request.getHeader("Authorization");
         String username = null;
         String jwtToken = null;
