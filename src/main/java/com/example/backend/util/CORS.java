@@ -25,7 +25,7 @@ public class CORS {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins(
-                                "https://transpobl-frontend.vercel.app",
+                                "https://transpobl-frontend.vercel.app/login",
                                 "http://localhost:4200"
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
