@@ -17,6 +17,7 @@ import java.io.IOException;
 @Configuration
 public class CORS {
 
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
@@ -24,10 +25,12 @@ public class CORS {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins(
-                                "https://transpobl-frontend.vercel.app"
+                                "https://transpobl-frontend.vercel.app",
+                                "http://localhost:4200"
                         )
-                        .allowedMethods("*")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
+                        .exposedHeaders("Authorization")
                         .allowCredentials(true);
             }
         };
