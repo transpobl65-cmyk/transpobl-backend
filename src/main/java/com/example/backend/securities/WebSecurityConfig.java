@@ -60,6 +60,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())              // 👈 añade esto
                 .authorizeHttpRequests(req -> req
                         // ✅ Permitir Swagger sin autenticación
                         .requestMatchers(
