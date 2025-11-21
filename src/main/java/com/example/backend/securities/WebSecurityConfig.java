@@ -60,34 +60,27 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(Customizer.withDefaults())              // 👈 añade esto
+                .cors(Customizer.withDefaults()) // 👈 ACTIVAR CORS AQUÍ
                 .authorizeHttpRequests(req -> req
-                        // ✅ Permitir Swagger sin autenticación
                         .requestMatchers(
                                 "/login",
+                                "/test",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/swagger-resources/**",
                                 "/configuration/ui",
                                 "/configuration/security",
-                                "/webjars/**",
-                                "/test"   // 👈 AQUI AÑADIMOS EL ENDPOINT LIBRE
-
+                                "/webjars/**"
                         ).permitAll()
-                        // ✅ Permitir login sin token
-                        .requestMatchers(("/login")).permitAll()
-                        // 🔒 El resto requiere JWT
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(AbstractHttpConfigurer::disable)
-                .exceptionHandling(e -> e.authenticationEntryPoint(jwtAuthenticationEntryPoint))
-                .sessionManagement(Customizer.withDefaults());
+                .exceptionHandling(e -> e.authenticationEntryPoint(jwtAuthenticationEntryPoint));
 
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
-
 }

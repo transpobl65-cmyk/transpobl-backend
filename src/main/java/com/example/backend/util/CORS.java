@@ -26,12 +26,13 @@ public class CORS {
                 registry.addMapping("/**")
                         .allowedOrigins(
                                 "https://transpobl-frontend.vercel.app",
-                                "http://localhost:4200"
+                                "http://localhost:4200",
+                                "*"
                         )
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedMethods("*")
                         .allowedHeaders("*")
-                        .exposedHeaders("Authorization")
-                        .allowCredentials(true);
+                        .exposedHeaders("*")
+                        .allowCredentials(false);
             }
         };
     }
