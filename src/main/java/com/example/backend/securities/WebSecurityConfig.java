@@ -60,9 +60,11 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(Customizer.withDefaults()) // 👈 ACTIVAR CORS AQUÍ
+                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(req -> req
                         .requestMatchers(
+                                "/",                // 👈 AGREGAR
+                                "/error",           // 👈 AGREGAR
                                 "/login",
                                 "/test",
                                 "/v3/api-docs/**",
@@ -83,4 +85,5 @@ public class WebSecurityConfig {
 
         return httpSecurity.build();
     }
+
 }
