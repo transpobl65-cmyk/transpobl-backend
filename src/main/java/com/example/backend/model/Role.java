@@ -3,9 +3,7 @@ package com.example.backend.model;
 import jakarta.persistence.*;
 @Entity
 @Table(
-        name = "roles",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "rol"})}
-)
+        name = "roles")
 
 public class Role {
 
