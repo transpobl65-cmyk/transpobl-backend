@@ -64,6 +64,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(req -> req
                         // ✅ Permitir Swagger sin autenticación
                         .requestMatchers(
+                                "/login",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
