@@ -17,17 +17,15 @@ import java.io.IOException;
 @Configuration
 public class CORS {
 
-
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins(
+                        .allowedOriginPatterns(  // ← USAR ESTO, NO allowedOrigins
                                 "https://transpobl-frontend.vercel.app",
-                                "http://localhost:4200",
-                                "*"
+                                "http://localhost:4200"
                         )
                         .allowedMethods("*")
                         .allowedHeaders("*")
