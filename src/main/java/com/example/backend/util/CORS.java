@@ -31,8 +31,8 @@ public class CORS {
                         )
                         .allowedMethods("*")
                         .allowedHeaders("*")
-                        .exposedHeaders("*")
-                        .allowCredentials(false);
+                        .exposedHeaders("Authorization")
+                        .allowCredentials(true);
             }
         };
     }
