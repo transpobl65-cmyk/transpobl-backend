@@ -30,6 +30,8 @@ public class GastosEmpresaController {
         ModelMapper m = new ModelMapper();
         GastosEmpresa g = m.map(dto, GastosEmpresa.class);
 
+        g.setVersion(null);  // Esto asegura que no se asigne una versión al crear un nuevo registro
+
         // ✅ 1️⃣ Obtén el usuario autenticado del contexto de seguridad
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 

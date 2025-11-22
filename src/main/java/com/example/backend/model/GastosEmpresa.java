@@ -28,6 +28,16 @@ public class GastosEmpresa {
     @JsonIgnoreProperties({"roles"}) // 👈 evita el bucle infinito
     private Users creadoPor;
 
+    private Integer version;  // <-- Agregar el campo de versión
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
     public Long getId() {
         return id;
     }
