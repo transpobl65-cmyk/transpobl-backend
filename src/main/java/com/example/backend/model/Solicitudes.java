@@ -27,16 +27,16 @@ public class Solicitudes {
     private BigDecimal precio;
 
     // 🚛 Nuevo campo: vehículo designado
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vehiculo_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Vehiculos vehiculo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cliente_id", nullable = false)
     private Clientes cliente;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"roles"}) // 👈 evita el bucle infinito
     @JoinColumn(name = "usuario_id", nullable = false)
 
